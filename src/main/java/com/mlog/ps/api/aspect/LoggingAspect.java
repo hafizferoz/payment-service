@@ -99,12 +99,12 @@ public class LoggingAspect {
 
     }
 
-    @Before("@within(com.mlog.ps.api.aspect.EnableLogging) || @annotation(com.mlog.ps.api.aspect.EnableLogging)")
+    @Before("execution(public * com.mlog.ps.api..*(..)) || @annotation(com.mlog.ps.api.aspect.EnableLogging)")
     public void beforeServiceLogging(JoinPoint joinPoint) {
         log.info("Method started: " + joinPoint.getSignature().toShortString());
     }
 
-    @AfterReturning(value = "@within(com.mlog.ps.api.aspect.EnableLogging) || @annotation(com.mlog.ps.api.aspect.EnableLogging)",
+    @AfterReturning(value = "execution(public * com.mlog.ps.api..*(..)) || @annotation(com.mlog.ps.api.aspect.EnableLogging)",
             returning = "result")
     public void afterServiceLogging(JoinPoint joinPoint, Object result) {
         log.info("Method ended: {} / returned result {}" , joinPoint.getSignature().toShortString(),result);
